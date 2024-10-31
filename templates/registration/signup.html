@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Cadastre-se{% endblock %}
+
+{% block content %}
+<h2>Cadastre-se</h2>
+
+<form method="post">
+  {% csrf_token %}
+  
+  {% if form.non_field_errors %}
+  <div class="alert alert-danger" role="alert">
+    {{ form.non_field_errors }}
+  </div>
+  {% endif %}
+
+  <div class="mb-3">
+      <label class="form-label" for="{{ form.username.id_for_label }}">Usuário:</label>
+      <input type="text" name="username" maxlength="150" autocapitalize="none" autocomplete="username" autofocus="" required="" aria-describedby="id_username_helptext" id="id_username" class="form-control" />
+      {% if form.username.errors %}
+        <span id="passwordHelpInline" class="form-text">{{ form.username.errors }}</span>
+      {% endif %}
+  </div>
+  <div class="mb-3">
+      <label class="form-label" for="{{ form.password1.id_for_label }}">Senha:</label>
+      <input type="password" name="password1" autocomplete="new-password" aria-describedby="id_password1_helptext" id="id_password1" class="form-control" />
+      {% if form.password1.errors %}
+        <span id="passwordHelpInline" class="form-text">{{ form.password1.errors }}</span>
+      {% endif %}
+  </div>
+  <div class="mb-3">
+      <label class="form-label" for="{{ form.password2.id_for_label }}">Confirme a senha:</label>
+      <input type="password" name="password2" autocomplete="new-password" aria-describedby="id_password2_helptext" id="id_password2" class="form-control" />
+      {% if form.password2.errors %}
+        <span id="passwordHelpInline" class="form-text">{{ form.password2.errors }}</span>
+      {% endif %}
+  </div>
+
+  <button class="btn btn-primary mt-3 w-100" type="submit">Concluir</button>
+  <a class="btn btn-link mt-3 w-100" href="{% url 'login' %}">Cancelar</a>
+</form>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "authenticated.html" %}
+
+{% block title %}Bem-vindo{% endblock %}
+    
+{% block metas %}
+<script>
+function play(identifier) {
+    console.log("play", identifier);
+    window.alert('Play ' + identifier);
+}
+</script>
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        {% for button in buttons  %}
+            <div id="{{ button.id }}" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3 d-flex align-items-stretch">
+                <div class="border shadow-sm p-3 bg-body-tertiary rounded w-100 btn" onclick="play('{{button.identifier}}')">
+                    <p class="fs-4 fw-bold text-center m-2">{{ button.button_label }}</p>
+                    <p class="fs-6 fw-lighter">{{ button.button_text }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
