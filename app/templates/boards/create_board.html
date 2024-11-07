@@ -1,0 +1,72 @@
+{% extends "authenticated.html" %}
+
+{% block title %}Bem-vindo{% endblock %}
+    
+{% block content %}
+    <h2>Adicionar novo botão</h2>
+    <form method="post" action="{% url 'create_board' %}" onsubmit="enviar(event)">
+        {% csrf_token %}
+
+        <div class="mb-2">
+            <label for="id_label" class="form-label">Nome do botão:</label>
+            <input type="text" name="label" autofocus="" maxlength="30" required="" id="id_label" class="form-control" />
+        </div>
+
+        <div class="mb-2">
+            <label for="id_text" class="form-label">Texto a ser falado:</label>
+            <input type="text" name="text" autofocus="" maxlength="200" required="" id="id_text" class="form-control" />
+        </div>
+
+        <div class="mb-2">
+            <label for="id_image" class="form-label">Imagem:</label>
+            <input type="file" name="image" id="id_image" class="form-control" accept="image/png, image/jpeg" />
+        </div>
+
+        <button class="btn btn-primary mt-3" type="submit">Salvar</button>
+        <a href="{% url 'list_board' %}" class="btn btn-link mt-3">cancelar</a>
+    </form>
+
+    <script>
+        let imageBase64 = null;
+
+        function readFile() {
+            if (!this.files || !this.files[0]) return;
+                
+            const fileReader = new FileReader();
+                
+            fileReader.addEventListener("load", (event) => {
+              imageBase64 = event.target.result;
+            }); 
+                
+            fileReader.readAsDataURL(this.files[0]);      
+        }
+
+        document.querySelector("#id_image").addEventListener("change", readFile);
+
+        function enviar(event) {
+            event.preventDefault();
+
+            const formData  = new FormData();
+            formData.append('text', document.getElementById("id_text").value);
+            formData.append('label', document.getElementById("id_label").value);
+            formData.append('image', document.getElementById("id_image").files[0]);
+            formData.append('csrfmiddlewaretoken', '{{ csrf_token }}');
+
+            fetch('/boards/new', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-CSRFToken': '{{ csrf_token }}',
+                    'Accept': 'application/json'
+                }
+            })
+            .then((res) => res.json())
+            .then((data) => {
+                if (data?.success) {
+                    window.alert("Tudo certo! O botão foi criado com sucesso!");
+                    window.location.href = '/boards'
+                }
+            });
+        }
+    </script>
+{% endblock %}
