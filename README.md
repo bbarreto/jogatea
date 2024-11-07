@@ -1,9 +1,12 @@
 # Prancha de Comunicação
 
-Para rodar o projeto, faça o clone do repositório e utilize o virtual environment do Python que está incluso.
-
-Para iniciar o servidor HTTP execute no terminal: 
+Para rodar o projeto, faça o clone do repositório e utilize os seguintes comandos.
 
 ```
-python manage.py runserver
+# Para compilar a imagem Docker com o projeto
+docker build . --tag prancha:latest
+
+# Iniciar o servidor localmente expondo a porta 8000
+docker run -d -p 8000:8000 prancha:latest
+
 ```
