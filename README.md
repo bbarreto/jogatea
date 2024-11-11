@@ -24,7 +24,12 @@ Este projeto usa a biblioteca do Google Cloud para conversão de texto em voz.
 
 Você pode ativer sua conta em https://console.cloud.google.com/
 
-Para autenticar com as chaves de acesso execute no terminal (com o servidor já iniciado):
+Para iniciar a SDK e selecionar um projeto, execute:
+```
+docker compose exec web /root/google-cloud-sdk/bin/gcloud init
+```
+
+Para criar a chave de acesso padrão execute no terminal (com o servidor já iniciado):
 
 ```
 docker compose exec web /root/google-cloud-sdk/bin/gcloud auth application-default login
