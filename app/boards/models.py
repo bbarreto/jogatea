@@ -13,4 +13,5 @@ class BoardButton(models.Model):
     button_text = models.CharField(max_length=200)
     button_label = models.CharField(max_length=30)
     button_image = models.ImageField(upload_to=user_directory_path, null=True)
+    button_audio = models.FileField(upload_to=user_directory_path, null=True)
     author = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.CASCADE)

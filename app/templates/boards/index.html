@@ -5,8 +5,8 @@
 {% block metas %}
 <script>
 function play(identifier) {
-    console.log("play", identifier);
-    window.alert('Play ' + identifier);
+    const audioElement = new Audio(identifier);
+    audioElement.play();
 }
 </script>
 <style>
@@ -36,7 +36,7 @@ function play(identifier) {
     <div class="row">
         {% for button in buttons  %}
             <div id="{{ button.id }}" class="col-12 col-sm-6 col-md-4 col-lg-3 mb-3 d-flex align-items-stretch">
-                <div class="border shadow-sm p-3 bg-body-tertiary rounded w-100 btn d-flex flex-column justify-content-center" onclick="play('{{button.identifier}}')">
+                <div class="border shadow-sm p-3 bg-body-tertiary rounded w-100 btn d-flex flex-column justify-content-center" {% if button.button_audio %}onclick="play('{{button.button_audio.url}}')"{% endif %}>
                     {% if button.button_image %}<img class="button_image" src="{{ button.button_image.url }}" />{% endif %}
                     <p class="fs-4 fw-bold text-center m-2">{{ button.button_label }}</p>
                     <p class="fs-6 fw-lighter">{{ button.button_text }}</p>

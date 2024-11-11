@@ -8,7 +8,8 @@
       </a>
 
       <ul class="nav nav-pills">
-        <li class="nav-item"><a href="{% url 'list_board' %}" class="nav-link active" aria-current="page">Gerenciar</a></li>
+        <li class="nav-item"><a href="{% url 'boards' %}" class="nav-link {% if request.resolver_match.url_name == 'boards' %}active{% endif %}" aria-current="page">Início</a></li>
+        <li class="nav-item"><a href="{% url 'list_board' %}" class="nav-link {% if request.resolver_match.url_name == 'list_board' %}active{% endif %}" aria-current="page">Gerenciar</a></li>
         <li class="nav-item">
             <form method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
